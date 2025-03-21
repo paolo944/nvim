@@ -1,2 +1,2 @@
 require("paul.remap")
-print("coucou de paul")
+require("paul.set")
