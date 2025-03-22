@@ -1,5 +1,28 @@
-vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.nu.nru = true
+
+-- Créer un groupe d'autocommandes
+local numbertoggle_group = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
+
+-- Définir les autocommandes
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  group = numbertoggle_group,
+  pattern = "*",
+  callback = function()
+    if vim.o.number and vim.fn.mode() ~= "i" then
+      vim.o.relativenumber = true
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  group = numbertoggle_group,
+  pattern = "*",
+  callback = function()
+    if vim.o.number then
+      vim.o.relativenumber = false
+    end
+  end,
+})
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
