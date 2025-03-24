@@ -1,2 +1,1 @@
-require("paul.set")
-require("paul.remap")
+require("paul")
